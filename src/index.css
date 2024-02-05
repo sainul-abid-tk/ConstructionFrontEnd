@@ -1,0 +1,20 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media screen and (max-width: 560px) {
+  #contact-btns{
+    width: 160px;
+  }
+}
+.slick-slide > div {
+  width:100%;
+}
+#tooltip:hover{
+  background-color:  rgba(0,0,0,0.32);
+}
+
