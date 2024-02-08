@@ -1,117 +1,180 @@
-import React, { useState } from 'react'
-import Header from '../components/Header'
-import SearchIcon from '@mui/icons-material/Search';
-import { city } from '../assets/AllCities/Cities';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
-import WorkerCard from '../components/WorkerCard';
+import React, { useState } from "react";
+import Header from "../components/Header";
+import SearchIcon from "@mui/icons-material/Search";
+import { city } from "../assets/AllCities/Cities";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import WorkerCard from "../components/WorkerCard";
 
-function Workers() {
-  const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
-  const names = [
-    'Oliver Hansen',
-    'Van Henry',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
-  ];
-  const [searchCity,setSearchCity]=useState("")
-  const [age, setAge] = useState('');
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-  searchCity&&city.filter(item=>{
-    if(item.name.toLowerCase().includes(searchCity)||item.state.toLowerCase().includes(searchCity)){
-      return item
-    }
-  }).map(data=>{
-    console.log(data.name,data.state)
-  })
   return (
-    <>
-    <Header insideWorkers setSearchCity={setSearchCity}/>
-    <div className="min-h-screen">
-      {/* Search City */}
-    <div className='flex justify-center mt-2'>
-    <div className='hidden max-[820px]:flex justify-between items-center h-12 w-[350px] border border-black rounded-xl'>
-          <input className='ms-2 outline-none w-72 text-lg' onChange={e=>setSearchCity(e.target.value)} placeholder="Search By State or City" type="text"  />
-          <SearchIcon className='me-2 cursor-pointer' fontSize='large' color='black' />
-        </div>
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ p: 3 }}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
     </div>
-    <div className='grid grid-cols-8  max-lg:grid-cols-4 mt-4 max-[686px]:grid-cols-3 max-sm:px-5 items-center justify-center max-sm:grid-cols-1'>
-    <FormControl sx={{ minWidth: 200 }} className='ms-5 max-sm:w-full max-sm:ms-0 ' size="small">
-      <InputLabel style={{fontWeight:'bold'}} id="demo-select-small-label">All</InputLabel>
-      <Select
-        labelId="demo-select-small-label"
-        id="demo-select-small"
-        value={age}
-        label="Age"
-        onChange={handleChange}
-        MenuProps={MenuProps}
-      >
-        <MenuItem value="">
-          <em>All</em>
-        </MenuItem>
-        {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-            >
-              {name}
-            </MenuItem>
-          ))}
-
-      </Select>
-    </FormControl>
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer'>Electrical</p>
-    </div>
-       
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer border-b-4 border-yellow-400'>Plumbing</p>
-    </div>
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer'>Painting</p>
-    </div>
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer'>Welding</p>
-    </div>
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer'>Construction</p>
-    </div>
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer'>Centring</p>
-    </div>
-    <div className='flex items-center justify-center max-sm:hidden'>
-    <p className='font-bold text-lg cursor-pointer'>Fabrication</p>
-    </div>
-    </div>
-    <div className='grid grid-cols-4 mt-10 gap-4 px-4 max-lg:grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1'>
-    <div>
-    <WorkerCard/>
-    </div>
-    </div>
-    </div>
-    </>
-
-  )
+  );
 }
 
-export default Workers
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
+  };
+}
+
+function Workers() {
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  const [searchCity, setSearchCity] = useState("");
+
+  searchCity &&
+    city
+      .filter((item) => {
+        if (
+          item.name.toLowerCase().includes(searchCity) ||
+          item.state.toLowerCase().includes(searchCity)
+        ) {
+          return item;
+        }
+      })
+      .map((data) => {
+        console.log(data.name, data.state);
+      });
+  return (
+    <>
+      <Header insideWorkers setSearchCity={setSearchCity} />
+      <div className="min-h-screen">
+        {/* Search City */}
+        <div className="flex justify-center mt-2">
+          <div className="hidden max-[820px]:flex justify-between items-center h-12 w-[350px] border border-black rounded-xl">
+            <input
+              className="ms-2 outline-none w-72 text-lg"
+              onChange={(e) => setSearchCity(e.target.value)}
+              placeholder="Search By State or City"
+              type="text"
+            />
+            <SearchIcon
+              className="me-2 cursor-pointer"
+              fontSize="large"
+              color="black"
+            />
+          </div>
+        </div>
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              variant="scrollable"
+              aria-label="basic tabs example"
+            >
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="All"
+                {...a11yProps(0)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Electrical"
+                {...a11yProps(1)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Plumbing"
+                {...a11yProps(2)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Carpentry"
+                {...a11yProps(3)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Welding"
+                {...a11yProps(4)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="TileWork"
+                {...a11yProps(5)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Construction"
+                {...a11yProps(6)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Painting"
+                {...a11yProps(7)}
+              />
+              <Tab
+                style={{ marginLeft: "23px", marginRight: "24px" }}
+                label="Centring"
+                {...a11yProps(8)}
+              />
+            </Tabs>
+          </Box>
+          <CustomTabPanel value={value} index={0}>
+            <div className="grid grid-cols-4 mt-10 gap-4 max-2xl:grid-cols-3
+            max-lg:grid-cols-2 max-sm:grid-cols-1">
+              <div>
+                <WorkerCard />
+              </div>
+            </div>
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={1}>
+            Item Two
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={2}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={3}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={4}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={5}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={6}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={7}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={8}>
+            Item Three
+          </CustomTabPanel>
+        </Box>
+      </div>
+    </>
+  );
+}
+
+export default Workers;

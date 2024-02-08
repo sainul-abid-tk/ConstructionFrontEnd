@@ -6,6 +6,8 @@ import { Button } from '@mui/material'
 import ForwardIcon from '@mui/icons-material/Forward';
 import Header from '../components/Header'
 import { Link } from 'react-router-dom'
+import ConstructionWork from '../assets/Images/ConstructionWork.jpg'
+import maintanance from '../assets/Images/maintanance.jpg'
 function Home() {
   return (
     <>
@@ -52,11 +54,11 @@ function Home() {
       <div className="grid grid-cols-2 mx-36  mt-24 max-lg:mx-5 max-md:grid-cols-1 overflow-hidden" id="services">
   <div className="grid me-5 max-md:me-0">
     <div className="w-full">
-      <img src="https://mccrackingplumbingllc.com/wp-content/uploads/2020/04/Plumbing-Repair.jpg" className=" w-full" alt=""/>
+      <img src={maintanance} className=" w-full" alt=""/>
     </div>
     <div className="h-[550px] max-sm:h-[450px] flex flex-col justify-center px-5 mt-5 max-md:mt-0 "> 
       <h1 className="text-4xl font-bold  max-sm:text-2xl">Maintenance Services</h1>
-      <p className="mt-12 text-xl max-sm:text-sm ">Building maintenance services involve the comprehensive upkeep and management of a structure to ensure its safety, functionality, and aesthetics. These services encompass routine inspections, repairs, and cleaning to address wear and tear, prevent deterioration, and extend the lifespan of building components. Maintenance tasks may include HVAC system checks, plumbing repairs, electrical inspections, and structural integrity assessments. Building maintenance services also cover exterior upkeep, including landscaping, painting, and façade cleaning. Skilled technicians and contractors are typically employed to perform specialized maintenance tasks.
+      <p className="mt-12 text-xl max-sm:text-sm ">Building maintenance services involve the comprehensive upkeep and management of a structure to ensure its safety, functionality, and aesthetics. These services encompass routine inspections, repairs, and cleaning to address wear and tear, prevent deterioration, and extend the lifespan of building components. Maintenance tasks may include HVAC system checks, plumbing repairs, electrical inspections, and structural integrity assessments. Building maintenance services also cover exterior upkeep, including landscaping, painting.
        </p>
     </div>
   </div>
@@ -67,7 +69,7 @@ function Home() {
        </p>
     </div>
     <div className="w-full mt-5 max-md:mt-0">
-    <img src="https://cdnassets.hw.net/43/75/4d4bcea14eedaacb4cc149e245ef/construction-site-workers.jpg" class=" w-full" alt=""/>
+    <img src={ConstructionWork} class=" w-full" alt=""/>
     </div>
   </div>
 </div>

@@ -7,7 +7,7 @@ import StarsIcon from '@mui/icons-material/Stars';
 import {  Button } from "@mui/material";
 import Electric from '../assets/Images/Electric.jpg'
 import { Link } from "react-router-dom";
-function WorkerDetailedCard() {
+function WorkerDetailedCard({handleOpen}) {
   return (
     <>
     <div className="grid grid-cols-3 px-4 h-auto py-5">
@@ -43,7 +43,7 @@ function WorkerDetailedCard() {
         <Button id="contact-btns" startIcon={<CallRoundedIcon/>} style={{background:'green'}} size="small" variant="contained">Call</Button>
         <Link ><Button id="contact-btns" style={{background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black',width:"fit-content"}} className="bg-yellow-400 " size="small" startIcon={<QuestionAnswerRoundedIcon/>} variant="contained">Chat</Button></Link>
         <div>
-        <Button  id="contact-btns"  startIcon={<StarsIcon color="warning"/>} style={{background:'white',color:'black'}} size="small" variant="contained">Tap to Rating</Button>
+        <Button onClick={handleOpen} id="contact-btns"  startIcon={<StarsIcon color="warning"/>} style={{background:'white',color:'black'}} size="small" variant="contained">Tap to Rating</Button>
         </div>
       </div>
         </div>

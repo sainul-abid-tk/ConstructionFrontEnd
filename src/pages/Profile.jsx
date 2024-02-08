@@ -52,6 +52,7 @@ function Profile() {
               label="Username"
               variant="standard"
             />
+            <div>
             <TextField
               defaultValue={"kaifumer123@gmail.com"}
               type="email"
@@ -60,6 +61,8 @@ function Profile() {
               label="Email"
               variant="standard"
             />
+            <p className="text-red-500 ">*Update a valid E-mail Address*</p>
+            </div>
             <FormControl sx={{ width: "100%" }} variant="standard">
               <InputLabel htmlFor="standard-adornment-password">
                 Password

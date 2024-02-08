@@ -6,6 +6,7 @@ import BorderColorIcon from '@mui/icons-material/BorderColor';
 import {  Button } from "@mui/material";
 import Electric from '../assets/Images/Electric.jpg'
 import { Link } from "react-router-dom";
+import DeleteIcon from '@mui/icons-material/Delete';
 function UserEditableWorkCard() {
   return (
     <>
@@ -21,7 +22,7 @@ function UserEditableWorkCard() {
               readOnly
             />
           </div>
-          <p className="mt-2 text-lg">
+          <p className="mt-2 text-lg ">
             <LocationOnIcon /> Chennai,Tamilnadu
           </p>
           <p>
@@ -38,9 +39,12 @@ function UserEditableWorkCard() {
               Plumber
             </button>
           </div>
+          <div className='flex  mt-5'>
           <Link to={'/userEditReg'}>
-          <Button  id="contact-btns" startIcon={<BorderColorIcon/>} style={{background:'red',marginTop:'20px'}} size="small" variant="contained">Edit</Button>
+          <Button  id="contact-btns" className='bg-yellow-400' startIcon={<BorderColorIcon/>} style={{background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black'}} size="small" variant="contained">Edit</Button>
           </Link>
+          <DeleteIcon color="error" className='ms-5 cursor-pointer' fontSize='large'/>
+          </div>
         </div>
         <div className="col flex items-center justify-end max-md:items-start">
         <img src={Electric} width={350} alt="" className="rounded-md" />

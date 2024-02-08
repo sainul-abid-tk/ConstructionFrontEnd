@@ -291,7 +291,9 @@ function Register() {
           <h3 className="text-start text-xl font-bold mt-5">
             Upload Your Works
           </h3>
+          <p className="text-red-500 ">*Upload atleast three Photos*</p>
           <div className="grid grid-cols-4 gap-2 mt-5 max-sm:grid-cols-3">
+           
             <label className="text-center">
               <input className="hidden " type="file" name="" id="" />
               <div className="w-28 h-28 border border-black flex flex-col justify-center items-center cursor-pointer">

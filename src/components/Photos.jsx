@@ -2,7 +2,6 @@ import React from 'react'
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import UserPlaceHolder from '../assets/Images/UserPlaceHolder.jpg'
 import carpenter from '../assets/Images/carpenter.jpg'
 import welding from '../assets/Images/welding.jpg'
 import construction from '../assets/Images/Construction.jpg'
@@ -18,7 +17,6 @@ function Photos() {
         <img id='Arrows'  src={RightArrow} alt="nextArrow" {...props} />
       );
       var settings = {
-        dots: true,
         infinite: true,
         centerPadding: "60px",
         centerMode: true,
@@ -40,7 +38,6 @@ function Photos() {
               slidesToShow: 2,
               slidesToScroll: 1,
               infinite: true,
-              dots: true
             }
           },
           {
@@ -60,9 +57,9 @@ function Photos() {
         ]
       };
   return (
-    <div className='mt-5'>
+    <div className='mt-5 h-auto'>
         <h1 className="text-2xl font-bold">Photos</h1>
-        <div className='h-auto px-7 max-sm:px-0 mt-10 '>
+        <div className=' px-7 max-sm:px-0 mt-10 '>
       <Slider {...settings}>
         <div>
         <div className="rounded-lg  h-72 w-72 max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${welding})`}} ></div>
@@ -72,18 +69,6 @@ function Photos() {
         </div>
         <div>
         <div className="rounded-lg  h-72 w-72  max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${construction})`}} ></div>
-        </div>
-        <div>
-        <div className="rounded-lg h-72 w-72  max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${welding})`}} ></div>
-        </div>
-        <div>
-        <div className="rounded-lg  h-72 w-72 max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${construction})`}} ></div>
-        </div>
-        <div>
-        <div className="rounded-lg  h-72 w-72 max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${carpenter})`}} ></div>
-        </div>
-        <div>
-        <div className="rounded-lg  h-72 w-72  max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${UserPlaceHolder})`}} ></div>
         </div>
         </Slider>
         </div>
