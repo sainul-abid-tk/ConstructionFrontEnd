@@ -1,7 +1,7 @@
 import {  Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import Chat from './pages/Chat'
+import Chat from './Chat/Chat'
 import Auth from './pages/Auth'
 import Profile from './pages/Profile'
 import Footer from './components/Footer'

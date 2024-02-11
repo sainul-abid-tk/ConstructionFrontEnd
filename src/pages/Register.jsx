@@ -302,7 +302,7 @@ function Register() {
               </div>
             </label>
             <label className="text-center">
-              <input className="hidden " type="file" name="" id="" />
+              <input className="hidden" type="file" name="" id="" />
               <div className="w-28 h-28 border border-gray-500 flex flex-col justify-center items-center cursor-pointer">
                 <AddAPhotoIcon className="text-gray-500" fontSize="large" />
               </div>

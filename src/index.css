@@ -14,4 +14,13 @@
 .slick-slide > div {
   width:100%;
 }
+#own{
+  background: rgb(7, 107, 7);
+  border-radius: 10px 0px 10px 10px ;
+  float: right;
+}
+#owned{
+  justify-content: end;
+  align-items: end;
+}
 

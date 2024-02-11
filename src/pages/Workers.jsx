@@ -93,52 +93,58 @@ function Workers() {
               aria-label="basic tabs example"
             >
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="All"
                 {...a11yProps(0)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Electrical"
                 {...a11yProps(1)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Plumbing"
                 {...a11yProps(2)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Carpentry"
                 {...a11yProps(3)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Welding"
                 {...a11yProps(4)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="TileWork"
                 {...a11yProps(5)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Construction"
                 {...a11yProps(6)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Painting"
                 {...a11yProps(7)}
               />
               <Tab
-                style={{ marginLeft: "23px", marginRight: "24px" }}
+                style={{ marginLeft: "18px", marginRight: "17px" }}
                 label="Centring"
+                {...a11yProps(8)}
+              />
+              <Tab
+                style={{ marginLeft: "18px", marginRight: "17px" }}
+                label="Fabrication"
                 {...a11yProps(8)}
               />
             </Tabs>
           </Box>
+          
           <CustomTabPanel value={value} index={0}>
             <div className="grid grid-cols-4 mt-10 gap-4 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1">
@@ -169,6 +175,9 @@ function Workers() {
             Item Three
           </CustomTabPanel>
           <CustomTabPanel value={value} index={8}>
+            Item Three
+          </CustomTabPanel>
+          <CustomTabPanel value={value} index={9}>
             Item Three
           </CustomTabPanel>
         </Box>
