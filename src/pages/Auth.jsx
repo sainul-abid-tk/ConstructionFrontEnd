@@ -187,16 +187,16 @@ function Auth({ insideSignup }) {
         <CircularProgress size={60} color="warning" />
         
       </Backdrop>
-      <div  className="min-h-screen  flex flex-col justify-center items-center  py-3">
+      <div  className="min-h-screen  flex  justify-center items-center  py-3">
       <ToastContainer
           autoClose={3000}
           position="top-center"
           theme="colored"
         />
-        <div className="grid grid-cols-2 w-[850px] shadow-2xl">
-          <div className="flex flex-col justify-center items-center bg-white">
+        <div className="grid grid-cols-2 max-[850px]:grid-cols-1 w-[850px] shadow-2xl">
+          <div className="flex flex-col justify-center items-center h-96 bg-white">
             {insideSignup?
-            <div className="flex justify-center flex-col items-center">
+            <div className="flex justify-center flex-col items-center ">
               <EngineeringIcon fontSize="large" style={{fontSize:'80px'}} className="mb-5  font-bold"/>
             <h1 className="text-5xl font-bold w-80 text-center">WELCOME TO <span className="text-yellow-400">CONNECTIE</span></h1>
             </div>
