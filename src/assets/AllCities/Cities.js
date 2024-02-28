@@ -6103,5 +6103,20 @@ export const city=[
       "id":"1221",
        "name":"Dispur",
        "state":"Assam"
-    }
+    },
+    {
+        "id": "1222",
+        "name": "Wayanad",
+        "state": "Kerala"
+    },
+    {
+        "id": "1223",
+        "name": "Pathanamthitta",
+        "state": "Kerala"
+    },
+    {
+        "id": "1224",
+        "name": "Idukki",
+        "state": "Kerala"
+    },
 ]

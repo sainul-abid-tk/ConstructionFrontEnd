@@ -7,10 +7,10 @@ import {
   InputLabel,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Google from "../assets/Images/google.png";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Login, Visibility, VisibilityOff } from "@mui/icons-material";
 import HomeIcon from "@mui/icons-material/Home";
 import UserPlaceHolder from "../assets/Images/UserPlaceHolder.jpg";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
@@ -21,8 +21,13 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { auth } from "../FireBase/fireBase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import EngineeringIcon from '@mui/icons-material/Engineering';
+import signupBack from '../assets/Images/signupBack.jpg'
+import LoginBack from '../assets/Images/LoginBack.png'
+import { tokenAuthenticationContext } from "../ContextAPI/TokenAuth";
 function Auth({ insideSignup }) {
   const provider = new GoogleAuthProvider();
+  const {isAuthorized,setIsAuthorized}=useContext(tokenAuthenticationContext)
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -50,7 +55,7 @@ function Auth({ insideSignup }) {
       reqBody.append("username", username);
       reqBody.append("email", email);
       reqBody.append("password", password);
-      reqBody.append("profileImage", profileImage);
+      reqBody.append("profileImage",preview?profileImage:UserPlaceHolder);
       const reqHeader = {
         "Content-Type": preview ? "multipart/form-data" : "application/json",
       };
@@ -93,12 +98,16 @@ function Auth({ insideSignup }) {
           );
           setTimeout(() => {
             setUser({ email: "", password: "" });
+            setIsAuthorized(true)
             setOpen(false);
-            navigate("/");
+            if(result.data.existingUser.email=="admin123@gmail.com"){
+              navigate('/adhome')
+            }else{
+              navigate("/");
+            }
           }, 3000);
         } else {
           toast.error(result.response.data);
-          setUser({ email: "", password: "" });
         }
       } catch (err) {
         console.log(err);
@@ -139,6 +148,7 @@ function Auth({ insideSignup }) {
       sessionStorage.setItem("token",googleLoginResult.data.token)
       sessionStorage.setItem("user",JSON.stringify(googleLoginResult.data.user))
       navigate('/')
+      setIsAuthorized(true)
       setGoogleLogin({
         username: "",
         email: "",
@@ -146,15 +156,19 @@ function Auth({ insideSignup }) {
         profileImage: "",
       })
     } else {
-      toast.warning(googleLoginResult.response.data);
+      console.log(googleLoginResult.response.data);
     }
   }
   useEffect(() => {
-    GoogleLogin()
+    
     if (user.profileImage) {
       setPreview(URL.createObjectURL(user.profileImage));
     }
-  }, [user.profileImage,googleLogin]);
+  }, [user.profileImage]);
+  useEffect(()=>{
+    GoogleLogin()
+  },[googleLogin,handleLogin])
+  
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -171,18 +185,29 @@ function Auth({ insideSignup }) {
         open={open}
       >
         <CircularProgress size={60} color="warning" />
+        
       </Backdrop>
-      <div className="min-h-screen flex flex-col justify-center items-center bg-yellow-300 py-3">
-        <ToastContainer
+      <div  className="min-h-screen  flex flex-col justify-center items-center  py-3">
+      <ToastContainer
           autoClose={3000}
           position="top-center"
           theme="colored"
         />
-        <h1 className="text-center text-5xl mb-10 font-extrabold">
-          {insideSignup ? "Sign Up" : "Log In"}
-        </h1>
-
-        <div className="max-w-md space-y-10 rounded-xl px-3">
+        <div className="grid grid-cols-2 w-[850px] shadow-2xl">
+          <div className="flex flex-col justify-center items-center bg-white">
+            {insideSignup?
+            <div className="flex justify-center flex-col items-center">
+              <EngineeringIcon fontSize="large" style={{fontSize:'80px'}} className="mb-5  font-bold"/>
+            <h1 className="text-5xl font-bold w-80 text-center">WELCOME TO <span className="text-yellow-400">CONNECTIE</span></h1>
+            </div>
+            :
+            <img src={LoginBack} alt="" />
+          }
+          </div>
+        <div className=" space-y-10   px-3  bg-yellow-400 py-3">
+        {!insideSignup&&<h1 className="text-center text-4xl mb-3  font-bold">
+          LOGIN
+        </h1>}
           {insideSignup && (
             <div className="flex justify-center items-center mt-10">
               <label className="text-center">
@@ -199,7 +224,7 @@ function Auth({ insideSignup }) {
                   style={{
                     backgroundImage: `url(${
                       preview ? preview : UserPlaceHolder
-                    })`,
+                    })`
                   }}
                   className="w-32 h-32 rounded-full bg-cover  cursor-pointer
             relative flex justify-center items-center"
@@ -217,7 +242,7 @@ function Auth({ insideSignup }) {
               value={user.username}
               onChange={(e) => setUser({ ...user, username: e.target.value })}
               type="text"
-              className="w-full border-black border-2 "
+              className="w-full"
               id="standard-basic"
               label="Username"
               variant="standard"
@@ -227,7 +252,7 @@ function Auth({ insideSignup }) {
             value={user.email}
             onChange={(e) => setUser({ ...user, email: e.target.value })}
             type="email"
-            className="w-full border-black border-2"
+            className="w-full "
             id="standard-basic"
             label="Email"
             variant="standard"
@@ -326,6 +351,7 @@ function Auth({ insideSignup }) {
               </Link>
             </div>
           )}
+        </div>
         </div>
       </div>
     </>

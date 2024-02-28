@@ -1,6 +1,9 @@
 *{
   margin: 0;
   padding: 0;
+  font-family: "Patua One", serif;
+    font-weight: 400;
+    font-style: normal;
 }
 @tailwind base;
 @tailwind components;
@@ -23,4 +26,15 @@
   justify-content: end;
   align-items: end;
 }
-
+.searchSuggestionLine:hover{
+  background-color: rgb(227, 227, 227);
+}
+.searchSuggestionLine.active{
+  background-color: rgb(227, 227, 227);
+}
+.show-items{
+  background: transparent;
+  /* backdrop-filter: blur(); */
+  background-color: rgba(226, 223, 223, 0.2);
+  /* opacity: ; */
+}

@@ -7,8 +7,9 @@ import welding from '../assets/Images/welding.jpg'
 import construction from '../assets/Images/Construction.jpg'
 import LeftArrow from '../assets/Images/LeftArrow.png'
 import RightArrow from '../assets/Images/RightArrow.png'
+import { SERVER_URL } from '../Services/serverURL';
 
-function Photos() {
+function Photos({workerDetails}) {
     const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
         <img id='Arrows' src={LeftArrow} alt="prevArrow" {...props} />
       );
@@ -61,15 +62,12 @@ function Photos() {
         <h1 className="text-2xl font-bold">Photos</h1>
         <div className=' px-7 max-sm:px-0 mt-10 '>
       <Slider {...settings}>
-        <div>
-        <div className="rounded-lg  h-72 w-72 max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${welding})`}} ></div>
-        </div>
-        <div>
-        <div className="rounded-lg  h-72 w-72  max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${carpenter})`}} ></div>
-        </div>
-        <div>
-        <div className="rounded-lg  h-72 w-72  max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${construction})`}} ></div>
-        </div>
+        {workerDetails?.workImages.map((item=>(
+          <div>
+          <div className="rounded-lg  h-72 w-72 max-[1260px]:w-52 max-[1200px]:h-52 max-[637px]:w-36 0 max-[637px]:h-36 bg-cover" style={{backgroundImage:`url(${SERVER_URL}/uploads/${item.filename})`}} ></div>
+          </div>
+        )))
+        }
         </Slider>
         </div>
         </div>

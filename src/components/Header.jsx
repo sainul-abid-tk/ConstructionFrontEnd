@@ -1,11 +1,10 @@
 import { Avatar, Button } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Add from '@mui/icons-material/Add'
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom';
-import UserPlaceHolder from "../assets/Images/UserPlaceHolder.jpg";
+import { Link, useNavigate } from 'react-router-dom';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -15,9 +14,18 @@ import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import EngineeringIcon from '@mui/icons-material/Engineering';
 import { SERVER_URL } from '../Services/serverURL';
-function Header({insideWorkers,setSearchCity,insideRegister,insideWorker}) {
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { city } from "../assets/AllCities/Cities";
+import HomeIcon from "@mui/icons-material/Home";
+import { profileUpdateResponseContext } from '../ContextAPI/AvarageRes';
+function Header({insideWorkers,setSearchCity,insideRegister,insideWorker,searchCity,setSeacrh,seacrh}) {
+  const {profileUpdateResponse,setProfileUpdateResponse}=useContext(profileUpdateResponseContext)
+  const navigate=useNavigate()
   const [loginedUser,setLoginedUser]=useState()
   const [anchorEl, setAnchorEl] = useState(null);
+  const [filteredCity,setFilteredCity]=useState([])
+  const [selectedItem,setSelectedItem]=useState(-1)
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,18 +35,92 @@ function Header({insideWorkers,setSearchCity,insideRegister,insideWorker}) {
   };
   useEffect(()=>{
     setLoginedUser(JSON.parse(sessionStorage.getItem("user")))
-  },[])
+    searchCity &&
+    setFilteredCity(city
+        .filter((item) => {
+          if (
+            item.name.toLowerCase().includes(searchCity) ||
+            item.state.toLowerCase().includes(searchCity)
+          ) {
+            return item;
+          }
+        }))
+        if(searchCity==""){
+          setSeacrh(!seacrh)
+        }
+  },[searchCity,profileUpdateResponse])
+  const handleKey=(e)=>{
+    if(selectedItem<filteredCity.length){
+      if(e.key=="ArrowUp"&&selectedItem>0){
+        setSelectedItem(prev=>prev-1)
+      }else if(e.key=="ArrowDown"&&selectedItem<filteredCity.length-1){
+        setSelectedItem(prev=>prev+1)
+      }else if(e.key=="Enter" && selectedItem>=0){
+        setSearchCity(`${filteredCity[selectedItem].name},${filteredCity[selectedItem].state}`)
+        setSeacrh(!seacrh)
+      }
+    }else{
+      setSelectedItem(-1)
+    }
+  }
+  const selectActiveProductIntoView=(index)=>{
+    const activeProduct=document.getElementById(`product-${index}`)
+    if(activeProduct){
+      activeProduct.scrollIntoView({
+        block:'nearest',inline:'start',
+        behavior:'smooth'
+      })
+    }
+  }
+  useEffect(()=>{
+    if(selectedItem!=-1){
+      selectActiveProductIntoView(selectedItem)
+    }
+  },[selectedItem])
+
+  
+
   return (
     <>
-    <div className='py-3 min-h-16 px-3 shadow-xl'>
+    <ToastContainer
+          autoClose={3000}
+          position="top-center"
+          theme="colored"
+        />
+    <div className='py-3 min-h-16 px-3 shadow-xl relative '>
+    
       <div className='flex w-full  justify-between'>
         <Link className='flex justify-center items-center' to={'/'}>
         <EngineeringIcon fontSize='large'/>
         <h4 className='text-2xl text-yellow-400 font-extrabold'>Connectie </h4>
         </Link>
-        {insideWorkers&&<div className='flex max-[820px]:hidden justify-between items-center h-12 w-[360px] border border-black rounded-xl'>
-          <input onChange={e=>setSearchCity(e.target.value)} className='ms-2 outline-none w-72 text-lg' placeholder="Search By State or City" type="text" />
-          <SearchIcon className='me-2 cursor-pointer' fontSize='large' color='black' />
+        {insideWorkers&&
+        <div className='relative'>
+        <div className='flex max-[820px]:hidden justify-between items-center h-12 w-[360px] border border-gray-400 rounded-xl shadow-md'>
+          <input value={searchCity} onKeyDown={e=>handleKey(e)} onChange={e=>setSearchCity(e.target.value)} className='ms-2 outline-none w-72 text-lg' placeholder="Search by state or city" type="text" />
+          <SearchIcon
+          onClick={()=>setSeacrh(!seacrh)}
+           className='me-2 cursor-pointer' fontSize='large' color='black' />
+        </div>
+        <div className="absolute z-10 flex justify-center items-center w-full max-[820px]:hidden">
+        <div  className="bg-white w-[360px] space-y-1 max-h-60 min-h-fit overflow-y-auto overflow-x-hidden">
+            {searchCity&&
+        filteredCity?.map((data,index) => (
+          <MenuItem
+          key={index}
+          value={`${data.name},${ data.state}`}
+          id={`product-${index}`}
+          className={selectedItem===index?'searchSuggestionLine active':'searchSuggestionLine'}
+          onClick={()=>{
+            setSearchCity(`${data.name},${data.state}`)
+            setSeacrh(!seacrh)
+          }}
+        >
+          {`${data.name},${ data.state}`}
+        </MenuItem>
+        ))}
+            </div>
+        </div>
         </div>
         }
         <div className='flex  max-[598px]:block'>
@@ -49,21 +131,15 @@ function Header({insideWorkers,setSearchCity,insideRegister,insideWorker}) {
         <Link to={'/login'}><Button style={{background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black'}} className='bg-yellow-300' variant="contained">LogIn / SignUp</Button></Link>
         </div>:
         <div className='flex  space-x-5 max-[598px]:float-end max-[598px]:mb-3'>
-        <Badge size="large" badgeContent={4} color="primary">
-        <MailIcon className="cursor-pointer" fontSize='large' style={{color:'black'}} />
-         </Badge>
-         <Tooltip title="Account settings">
-        { loginedUser.profileImage?<Avatar 
+        {JSON.parse(sessionStorage.getItem("user")).email=="admin123@gmail.com"&&
+        <Link to={'/adhome'}><Button variant='outlined'startIcon={<HomeIcon/>}>Back To Home</Button></Link>
+         }
+         {JSON.parse(sessionStorage.getItem("user")).email!="admin123@gmail.com"&&<Tooltip title="Account settings">
+        <Avatar 
              onClick={handleClick}
              className="cursor-pointer"
-             src={loginedUser.password==""?loginedUser.profileImage:`${SERVER_URL}/uploads/${loginedUser.profileImage}`} sx={{ width: 36, height: 36 }}/>:
-             <Avatar 
-             onClick={handleClick}
-             className="cursor-pointer"
-             src={UserPlaceHolder} sx={{ width: 36, height: 36 }}/>
-             }
-             
-        </Tooltip>
+             src={loginedUser?.password!=""?`${SERVER_URL}/uploads/${loginedUser?.profileImage}`:loginedUser?.profileImage.startsWith('https')?loginedUser?.profileImage:`${SERVER_URL}/uploads/${loginedUser?.profileImage}`} sx={{ width: 36, height: 36 }}/>
+        </Tooltip>}
       <Menu
         anchorEl={anchorEl}
         id="account-menu"
@@ -101,22 +177,31 @@ function Header({insideWorkers,setSearchCity,insideRegister,insideWorker}) {
       >
         <MenuItem style={{background:'white',width:'270px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
             {
-              loginedUser.profileImage?
-              <div style={{backgroundImage:loginedUser.password==""?`url(${loginedUser.profileImage})`:`url(${SERVER_URL}/uploads/${loginedUser.profileImage})`}} className="rounded-full w-28 h-28 bg-cover"></div>:
-              <div style={{backgroundImage:`url(${UserPlaceHolder})`}} className="rounded-full w-28 h-28 bg-cover"></div>
+              
+              <div style={{backgroundImage:loginedUser?.password!=""?`url(${SERVER_URL}/uploads/${loginedUser?.profileImage})`:loginedUser?.profileImage.startsWith('https')?`url(${loginedUser?.profileImage})`:`url(${SERVER_URL}/uploads/${loginedUser?.profileImage})`}} className="rounded-full w-28 h-28 bg-cover"></div>
             }
             <p className='font-bold text-lg mt-4'>{loginedUser.username}</p>
             <p className='font-bold '>{loginedUser.email}</p>
             <Link to={'/profile'} className='mt-1'><Button className='w-full mt-1' size='small' color='primary'  variant="contained">Edit Your Profile</Button></Link>
         </MenuItem>
         <Divider />
-        <MenuItem  onClick={handleClose}>
+        <MenuItem onClick={()=>{
+          navigate('/help')
+        }}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
           Help
         </MenuItem>
-        <MenuItem  onClick={handleClose}>
+        <MenuItem  onClick={()=>{
+          toast.success("Log-Out Successfully")
+           setTimeout(() => {
+            sessionStorage.removeItem("user")
+           sessionStorage.removeItem("token")
+           setLoginedUser("")
+           navigate('/')
+           }, 2000);
+        }}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
@@ -125,9 +210,15 @@ function Header({insideWorkers,setSearchCity,insideRegister,insideWorker}) {
       </Menu>
         </div>}
         <div className='ms-5'>
-        {!insideRegister&&<Link to={'/register'} className='max-[598px]:float-end max-[598px]:mb-3'><Button  color="success"  variant="contained" startIcon={<Add/>}>
+        {!insideRegister&&<div  className='max-[598px]:float-end max-[598px]:mb-3'><Button onClick={()=>{
+          if(sessionStorage.getItem("token")){
+            navigate('/register')
+          }else{
+            toast.info("Please Login!!!")
+          }
+        }} color="success"  variant="contained" startIcon={<Add/>}>
          Register
-        </Button></Link>}
+        </Button></div>}
         </div>
         </div>
       </div>

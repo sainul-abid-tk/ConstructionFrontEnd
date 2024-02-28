@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import Header from "../components/Header";
+import React, { useContext, useEffect, useState } from 'react'
+import AdHeader from './AdHeader'
 import {
   Button,
   FormControl,
@@ -16,10 +16,10 @@ import UserEditableWorkCard from "../components/UserEditableWorkCard";
 import {decrypt} from 'n-krypta'
 import { getDecryptedEnvAPI, updateUserProfileAPI } from "../Services/allAPI";
 import { SERVER_URL } from "../Services/serverURL";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { profileUpdateResponseContext } from "../ContextAPI/AvarageRes";
-import Footer from "../components/Footer";
-function Profile() {
+function AdProfile() {
   const navigate=useNavigate()
   const {profileUpdateResponse,setProfileUpdateResponse} =useContext(profileUpdateResponseContext)
   const [showPassword, setShowPassword] = useState(false);
@@ -31,6 +31,11 @@ function Profile() {
     email:JSON.parse(sessionStorage.getItem("user")).email,
     password:""
   })
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
   const getDecryptingEnv=async()=>{
     const result=await getDecryptedEnvAPI()
     if(result.status==200){
@@ -39,94 +44,90 @@ function Profile() {
       console.log(result.response.data);
     }
   }
- useEffect(()=>{
-  if(JSON.parse(sessionStorage.getItem("user")).password!=""){
-    getDecryptingEnv()
-  }
-  if(userProfile.profileImage){
-    setProfileImagePreview(URL.createObjectURL(userProfile.profileImage))
-  }
-  setExistingImage(JSON.parse(sessionStorage.getItem("user")).profileImage)
- },[userProfile.profileImage])
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  useEffect(()=>{
+    if(JSON.parse(sessionStorage.getItem("user")).password!=""){
+      getDecryptingEnv()
+    }
+    if(userProfile.profileImage){
+      setProfileImagePreview(URL.createObjectURL(userProfile.profileImage))
+    }
+    setExistingImage(JSON.parse(sessionStorage.getItem("user")).profileImage)
+   },[userProfile.profileImage])
 
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-  const handleUpdate=async()=>{
-   const {username,email,password,profileImage}=userProfile
-   const passwordCheckingforGoogleuser=JSON.parse(sessionStorage.getItem("user")).password
-   console.log(passwordCheckingforGoogleuser);
-   if(passwordCheckingforGoogleuser==""){
-    if(!username||!email){
-      toast.warning("Please fill the form completely!!!")
-    }else{
-      const reqBody=new  FormData()
-      reqBody.append("username",username)
-      reqBody.append("email",email)
-      reqBody.append("password",password)
-      reqBody.append("profileImage",profileImagePreview?profileImage:existingImage)
-      const token=sessionStorage.getItem("token")
-      if(token){
-        try{
-         const reqHeader={
-          "Content-Type":profileImagePreview?"multipart/form-data":"application/json",
-          "Authorization":`Bearer ${token}`
-         }
-         const result =await updateUserProfileAPI(reqBody,reqHeader)
-         if(result.status==200){
-          toast.success("Your profile updated Successfully")
-          sessionStorage.setItem("user",JSON.stringify(result.data))
-          useNavigate('/')
-          setProfileUpdateResponse(result.data)
-         }else{
-          toast.info(result.response.data);
-         }
-        }catch(err){
-          console.log(err);
-        }
-      }
-     }
-   }
-   else{
-    if(!username||!email||!password){
-      toast.warning("Please fill the form completely!!!")
+   const handleUpdate=async()=>{
+    const {username,email,password,profileImage}=userProfile
+    const passwordCheckingforGoogleuser=JSON.parse(sessionStorage.getItem("user")).password
+    console.log(passwordCheckingforGoogleuser);
+    if(passwordCheckingforGoogleuser==""){
+     if(!username||!email){
+       toast.warning("Please fill the form completely!!!")
      }else{
-      const reqBody=new  FormData()
-      reqBody.append("username",username)
-      reqBody.append("email",email)
-      reqBody.append("password",password)
-      reqBody.append("profileImage",profileImagePreview?profileImage:existingImage)
-      const token=sessionStorage.getItem("token")
-      if(token){
-        try{
-         const reqHeader={
-          "Content-Type":profileImagePreview?"multipart/form-data":"application/json",
-          "Authorization":`Bearer ${token}`
+       const reqBody=new  FormData()
+       reqBody.append("username",username)
+       reqBody.append("email",email)
+       reqBody.append("password",password)
+       reqBody.append("profileImage",profileImagePreview?profileImage:existingImage)
+       const token=sessionStorage.getItem("token")
+       if(token){
+         try{
+          const reqHeader={
+           "Content-Type":profileImagePreview?"multipart/form-data":"application/json",
+           "Authorization":`Bearer ${token}`
+          }
+          const result =await updateUserProfileAPI(reqBody,reqHeader)
+          if(result.status==200){
+           toast.success("Your profile updated Successfully")
+           sessionStorage.setItem("user",JSON.stringify(result.data))
+           useNavigate('/')
+           setProfileUpdateResponse(result.data)
+          }else{
+           toast.info(result.response.data);
+          }
+         }catch(err){
+           console.log(err);
          }
-         const result =await updateUserProfileAPI(reqBody,reqHeader)
-         if(result.status==200){
-          toast.success("Your profile updated Successfully")
-          useNavigate('/')
-          sessionStorage.setItem("user",JSON.stringify(result.data))
-          setProfileUpdateResponse(result.data)
-         }else{
-          toast.info(result.response.data);
-         }
-        }catch(err){
-          console.log(err);
-        }
+       }
       }
-     }
+    }
+    else{
+     if(!username||!email||!password){
+       toast.warning("Please fill the form completely!!!")
+      }else{
+       const reqBody=new  FormData()
+       reqBody.append("username",username)
+       reqBody.append("email",email)
+       reqBody.append("password",password)
+       reqBody.append("profileImage",profileImagePreview?profileImage:existingImage)
+       const token=sessionStorage.getItem("token")
+       if(token){
+         try{
+          const reqHeader={
+           "Content-Type":profileImagePreview?"multipart/form-data":"application/json",
+           "Authorization":`Bearer ${token}`
+          }
+          const result =await updateUserProfileAPI(reqBody,reqHeader)
+          if(result.status==200){
+           toast.success("Your profile updated Successfully")
+           useNavigate('/')
+           sessionStorage.setItem("user",JSON.stringify(result.data))
+           setProfileUpdateResponse(result.data)
+          }else{
+           toast.info(result.response.data);
+          }
+         }catch(err){
+           console.log(err);
+         }
+       }
+      }
+    }
+   
    }
-  
-  }
+
   return (
     <>
-      <Header />
-      <div className="grid grid-cols-8 max-[840px]:grid-cols-1 min-h-screen">
-        <div className="col-span-3 max-[840px]:col-auto h-full flex justify-center mt-3">
-          <div className=" w-5/6 space-y-12 rounded-xl ">
+    <AdHeader/>
+    <div className="h-screen flex justify-center items-center w-full">
+          <div className="w-96 space-y-12 rounded-xl ">
             <div className="flex justify-center items-center mt-10">
               <label className="text-center">
                 <input onChange={e=>setUserProfile({...userProfile,profileImage:e.target.files[0]})} className="hidden " type="file" name="" id="" />
@@ -216,16 +217,13 @@ function Profile() {
             </Button>
           </div>
         </div>
-        <div className="col-span-5 max-[840px]:col-auto shadow-lg">
-          <h1 className="font-bold text-center text-3xl mt-9">Edit Your Work Profile</h1>
-          <div className="max-[840px]:mt-5">
-            <UserEditableWorkCard/>
-          </div>
-        </div>
-      </div>
-      <Footer />
+        <ToastContainer
+          autoClose={2000}
+          position="top-center"
+          theme="colored"
+        />
     </>
-  );
+  )
 }
 
-export default Profile;
+export default AdProfile

@@ -20,8 +20,7 @@ function Chat() {
   };
   return (
     <>
-      <Header />
-      <div className="flex justify-center  h-screen pt-4">
+      <div className="flex justify-center items-center h-screen pt-4">
         <div className="grid grid-cols-6 w-3/4 max-[1000px]:px-3 max-[1000px]:w-auto h-5/6 ">
           <div className="col-span-2 border-2">
             <div className="bg-slate-300 h-[62px] flex justify-center items-center ">

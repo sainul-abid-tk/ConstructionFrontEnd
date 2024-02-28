@@ -8,6 +8,7 @@ import Header from '../components/Header'
 import { Link } from 'react-router-dom'
 import ConstructionWork from '../assets/Images/ConstructionWork.jpg'
 import maintanance from '../assets/Images/maintanance.jpg'
+import Footer from '../components/Footer'
 function Home() {
   return (
     <>
@@ -16,12 +17,12 @@ function Home() {
       <div  className="grid grid-cols-2 h-screen  bg-cover overflow-hidden max-[575px]:grid-cols-1   p-3 max-[575px]:h-auto">
       <div className='flex flex-col justify-center items-centers max-[575px]:p-5'>
           <h1 className='text-6xl font-extrabold max-[800px]:text-5xl'>Crafting Your Building Solution <span className='text-yellow-300'>One Click Away</span> </h1>
-          <h2 className=' text-2xl mt-6 font-semibold'>
+          <h2 className=' text-2xl mt-6 '>
           where your project needs, meet skilled hands and reliable workers 
           </h2>
           <div className='flex justify-start items-start mt-5 w-full '>
           <Link to={'/workers'}>
-          <Button style={{fontSize:'16px',background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black',fontWeight:'bold'}} className='bg-yellow-300' variant="contained" endIcon={<ForwardIcon style={{fontSize:'30px'}} />}>Find Your Worker</Button>
+          <Button style={{fontSize:'16px',background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black',fontWeight:'bold'}} className='bg-yellow-300' variant="contained" endIcon={<ForwardIcon className="hover:scale-x-125" style={{fontSize:'30px'}} />}>Find Your Worker</Button>
           </Link>
           </div>
         </div>
@@ -39,11 +40,11 @@ function Home() {
 
       <div className='bg-yellow-300 py-10 mt-10'>
         <h2 className='text-center text-4xl font-bold'>About</h2>
-        <h6 className='text-xl mt-5 text-justify px-3'>Welcome to our platform, where finding skilled workers or reputable construction companies for your projects is made simple and convenient. Whether you need an electrician, plumber, painter, carpenter, welder, or a construction company for comprehensive building works, our platform connects you with the professionals you need.
+        <h6 className='text-xl  mt-5 text-justify px-3'>Welcome to our platform, where finding skilled workers or reputable construction companies for your projects is made simple and convenient. Whether you need an electrician, plumber, painter, carpenter, welder, or a construction company for comprehensive building works, our platform connects you with the professionals you need.
 
         Upon signing up and logging in, users can easily navigate to the specific service they require. With a user-friendly interface, users can browse through a wide range of workers and construction companies, filtered by their current city for localized results.
 
-        Communication with workers and companies is made seamless with our integrated call and chat features. Users can easily connect with their chosen worker or company with just a click of a button, facilitating clear and direct communication.
+        Communication with workers and companies is made seamless with our integrated call and chat. Users can easily connect with their chosen worker or company with just a click of a button, facilitating clear and direct communication.
 
         For those seeking employment opportunities, our platform offers a hassle-free registration process. Employees can sign up, create a profile highlighting their skills and experience, and connect with potential employers in need of their services.
 
@@ -73,6 +74,7 @@ function Home() {
     </div>
   </div>
 </div>
+<Footer />
     </>
   )
 }
