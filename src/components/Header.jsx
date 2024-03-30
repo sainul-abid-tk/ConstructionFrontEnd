@@ -131,9 +131,6 @@ function Header({insideWorkers,setSearchCity,insideRegister,insideWorker,searchC
         <Link to={'/login'}><Button style={{background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black'}} className='bg-yellow-300' variant="contained">LogIn / SignUp</Button></Link>
         </div>:
         <div className='flex  space-x-5 max-[598px]:float-end max-[598px]:mb-3'>
-        {JSON.parse(sessionStorage.getItem("user")).email=="admin123@gmail.com"&&
-        <Link to={'/adhome'}><Button variant='outlined'startIcon={<HomeIcon/>}>Back To Home</Button></Link>
-         }
          {JSON.parse(sessionStorage.getItem("user")).email!="admin123@gmail.com"&&<Tooltip title="Account settings">
         <Avatar 
              onClick={handleClick}

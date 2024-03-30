@@ -39,7 +39,7 @@ function Footer() {
         <Button variant="contained" className='w-full' startIcon={<EmailIcon/>} color='error'>E-mail</Button>
       </div>
     </div>
-    <h6 className='text-lg text-center '>All Rights are recieved &copy;</h6>
+    <h6 className='text-md text-center '>Copyright © All Rights Reserved.2024</h6>
     </div>
   )
 }

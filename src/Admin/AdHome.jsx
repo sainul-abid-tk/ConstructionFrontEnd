@@ -71,9 +71,8 @@ function AdHome() {
   },[])
   return (
     <>
-    <AdHeader/>
-    <Box component="main" sx={{ flexGrow: 1,paddingLeft:13,paddingTop:5 }}>
-      <DrawerHeader/>
+    <Box component="main" sx={{ flexGrow: 1,paddingLeft:13,paddingTop:10 }}>
+      
         <div className='flex justify-between w-full px-5'>
           <div style={{background:'#0088FE'}} className="w-72  h-48 rounded-lg shadow-md">
             <div className='flex w-full justify-between h-36 items-center px-4'>

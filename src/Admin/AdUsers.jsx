@@ -118,9 +118,9 @@ function AdUsers() {
   },[profileUpdateResponse,deleteUser,userSearch])
   return (
     <>
-    <AdHeader/>
-    <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:3,paddingRight:1 }}>
-      <DrawerHeader/>
+
+    <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:10,paddingRight:1 }}>
+
         <h1 className='text-4xl font-bold'>Users List</h1>
         <div className='flex max-[715px]:block  max-[715px]:space-y-3 justify-between w-full  mt-5 items-center'>
           <div className='flex max-[715px]:inline items-center max-[715px]:space-y-3'>
@@ -153,7 +153,7 @@ function AdUsers() {
         </TableHead>
         <TableBody >
           
-            {allUsers!=""?records
+            {allUsers!==""?records
             .map((user,index)=>(
               <TableRow
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

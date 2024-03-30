@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Box } from '@mui/material';
 import { styled, useTheme } from '@mui/material/styles';
-import AdHeader from './AdHeader';
 import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend,AreaChart, Area} from 'recharts'
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -42,9 +41,7 @@ const workers=[
 function AdCharts() {
   return (
     <>
-    <AdHeader/>
-    <Box component="main" sx={{ flexGrow: 1,paddingLeft:3,paddingTop:3 }}>
-      <DrawerHeader/>
+    <Box component="main" sx={{ flexGrow: 1,paddingLeft:3,paddingTop:10 }}>
         <div className='flex space-x-2'>
         <BarChart
           width={750}

@@ -98,9 +98,9 @@ function AdWorkers() {
   },[deleteWorker,workerSearch])
   return (
     <>
-    <AdHeader/>
-    <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:3,paddingRight:3 }}>
-      <DrawerHeader/>
+
+    <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:10,paddingRight:3 }}>
+
         <h1 className='text-4xl font-bold'>Workers List</h1>
         <div className='flex justify-between w-full  mt-5 items-center'>
           <div className='flex items-center'>

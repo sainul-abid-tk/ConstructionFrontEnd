@@ -69,7 +69,7 @@ function AdReviews() {
   const handleDeleteReview=async(rId)=>{
     const result=await deleteReviewAPI(rId)
     if(result.status==200){
-      toast.success(result.data)
+      toast.success("Review Deleted Sucessfully")
     }else{
       console.log(result.response.data)
     }
@@ -82,9 +82,9 @@ function AdReviews() {
   },[idSearch,handleDeleteReview,reviewSearch])
   return (
     <>
-     <AdHeader/>
-     <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:3,paddingRight:3 }}>
-      <DrawerHeader/>
+
+     <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:10,paddingRight:3 }}>
+
         <h1 className='text-4xl font-bold'>Reviews List</h1>
         <div className='flex justify-between w-full  mt-5 items-center'>
           <div className='flex items-center'>
@@ -94,27 +94,6 @@ function AdReviews() {
               <Button  variant="text"><SearchIcon fontSize='large' className='text-black'/></Button>
             </div>
           </div>
-          {/* <Box sx={{ minWidth: 120 }}>
-      <FormControl size='small' fullWidth className='bg-yellow-300 text-lg font-bold rounded-md'>
-        <InputLabel id="demo-simple-select-label">Sort</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={age}
-          label="Age"
-          className=''
-          size='small'
-          onChange={handleChange}
-        >
-          <MenuItem value="">
-          <em>None</em>
-        </MenuItem>
-          <MenuItem value={10}>Latest</MenuItem>
-          <MenuItem value={20}>HighRating</MenuItem>
-          <MenuItem value={20}>LowRating</MenuItem>
-        </Select>
-      </FormControl>
-    </Box> */}
           </div>
         </div>
         <TableContainer component={Paper} className='mt-10'>

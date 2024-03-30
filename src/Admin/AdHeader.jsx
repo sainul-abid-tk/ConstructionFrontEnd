@@ -30,6 +30,8 @@ import { adminReportResponseContext } from '../ContextAPI/AvarageRes';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { newWorkerNotificationContext } from '../ContextAPI/NewWorkerNotify';
 import { getAdminAllworkersAPI, getReportedReviewsAPI } from '../Services/allAPI';
+import { io } from "socket.io-client";
+const socket = io("https://constructionbackend-jqba.onrender.com");
 const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
@@ -96,10 +98,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 );
-function AdHeader() {
+function AdHeader({setUsername}) {
   const {newWorkerNotification,setNewWorkerNotification}=useContext(newWorkerNotificationContext)
   const {adminReportResponse,setAdminReportResponse}=useContext(adminReportResponseContext)
   const [newRowCount,setNewRowCount]=useState(0)
+  const [notificationCount,setNotificationCount]=useState(0)
     const navigate=useNavigate()
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
@@ -133,10 +136,25 @@ function AdHeader() {
         console.log(result.response.data);
       }
     }
+    const getAllNotification=()=>{
+      socket.emit("adminConnected",'admin')
+     socket.on('notification',(notification)=>{
+      setNotificationCount(notification.length)
+     })
+    }
     useEffect(()=>{
-      getAllWorkers()
+      const intervalId = setInterval(() => {
+        getAllWorkers()
       getAllReportedReviews()
-    },[newWorkerNotification,activeIcon,])
+      getAllNotification()
+      }, 500); // Toggle every 2 seconds
+  
+      return () => clearInterval(intervalId);
+    },[newWorkerNotification,activeIcon,notificationCount,socket])
+    useEffect(()=>{
+      setActiveIcon('home');
+      navigate('/adhome');
+    },[])
   return (
     <Box >
     <CssBaseline />
@@ -155,12 +173,11 @@ function AdHeader() {
           <MenuIcon />
         </IconButton>
         <div className='w-full '>
-        <Link to={'/'} className="cursor-pointer flex  w-44 ">
+        <div className="cursor-pointer flex  w-44 ">
         <EngineeringIcon style={{color:'black'}} fontSize='large'/>
         <h4 className='text-2xl text-yellow-400 font-extrabold'>Connectie </h4>
-         </Link>
+         </div>
         </div>
-        
         <Typography className='flex space-x-4'>
           <Badge badgeContent={newRowCount} color="error">
           <NotificationsIcon onClick={()=>{
@@ -172,6 +189,7 @@ function AdHeader() {
            setTimeout(() => {
             sessionStorage.removeItem("user")
            sessionStorage.removeItem("token")
+           setUsername("")
            navigate('/')
            }, 2000);
         }} style={{width:'150px'}} color='error' variant='contained' startIcon={<LogoutIcon/>}>LogOut</Button>
@@ -187,72 +205,67 @@ function AdHeader() {
       </DrawerHeader>
       <Divider />
       <List className='space-y-5 mt-5'>
-        <div  className='flex  h-12  items-center px-3 cursor-pointer '  style={{color:activeIcon=='home'?'blue':'black'}}>
-       <HomeIcon onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('home')
-        }} style={{ color: activeIcon === 'home' ? 'blue' : 'black' }} className='me-5' fontSize='large' />
-        <p style={{color:activeIcon=='home'?'blue':'black'}} className='text-lg font-bold'>HOME</p>
+        }} className='flex  h-12  items-center px-3 cursor-pointer '  style={{color:activeIcon=='home'?'blue':'black'}}>
+       <HomeIcon   className='me-5' fontSize='large' />
+        <p  className='text-lg font-bold'>HOME</p>
         </div>
         <Divider />
-        <div  style={{color:activeIcon=='users'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
-        <PeopleAltIcon onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('users')
-        }} style={{ color: activeIcon === 'users' ? 'blue' : 'black' }} className='me-5' fontSize='large'/>
+        }} style={{color:activeIcon=='users'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
+        <PeopleAltIcon   className='me-5' fontSize='large'/>
         <p className='text-lg font-bold'>USERS</p>
         </div>
         <Divider/>
-        <div  style={{color:activeIcon=='workers'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
-        <EngineeringIcon onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('Workers')
-        }} style={{ color: activeIcon === 'Workers' ? 'blue' : 'black' }} className='me-5' fontSize='large'/>
+        }} style={{color:activeIcon=='Workers'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
+        <EngineeringIcon   className='me-5' fontSize='large'/>
         <p className='text-lg font-bold'>WORKERS</p>
         </div>
         <Divider />
-        <div  style={{color:activeIcon=='charts'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
-        <BarChartIcon onClick={()=>{
+        <div  onClick={()=>{
           handleIconClick('Chart')
-        }} style={{ color: activeIcon === 'Chart' ? 'blue' : 'black' }} className='me-5' fontSize='large'/>
+        }} style={{color:activeIcon==='Chart'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
+        <BarChartIcon  className='me-5' fontSize='large'/>
         <p className='text-lg font-bold'>CHARTS</p>
         </div>
         <Divider/>
-        <div  style={{color:activeIcon=='reviews'?'blue':'black'}}  className='flex  h-10  items-center px-3 cursor-pointer'>
-        <ReviewsIcon onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('Reviews')
-        }} style={{ color: activeIcon === 'Reviews' ? 'blue' : 'black' }} className='me-5' fontSize='large'/>
+        }} style={{color:activeIcon=='Reviews'?'blue':'black'}}  className='flex  h-10  items-center px-3 cursor-pointer'>
+        <ReviewsIcon   className='me-5' fontSize='large'/>
         <p className='text-lg font-bold'>REVIEWS</p>
         </div>
         <Divider/>
-        <div  style={{color:activeIcon=='report'?'blue':'black'}}  className='flex  h-10  items-center px-3 cursor-pointer'>
-        <Badge onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('Reports')
-        }} style={{ color: activeIcon === 'Reports' ? 'blue' : 'black' }} badgeContent={adminReportResponse} color="error" className='me-5'>
+        }} style={{color:activeIcon=='Reports'?'blue':'black'}}  className='flex  h-10  items-center px-3 cursor-pointer'>
+        <Badge   badgeContent={adminReportResponse} color="error" className='me-5'>
         <ReportIcon  fontSize='large'/>
         </Badge>
         <p className='text-lg font-bold'>REPORTS</p>
         </div>
         <Divider/>
-        <div style={{color:activeIcon=='contact'?'blue':'black'}}  className='flex  h-10  items-center px-3 cursor-pointer'>
-        <Badge onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('Contact')
-        }} style={{ color: activeIcon === 'Contact' ? 'blue' : 'black' }} badgeContent={1} color="error" className='me-5'> 
+        }} style={{color:activeIcon=='Contact'?'blue':'black'}}  className='flex  h-10  items-center px-3 cursor-pointer'>
+        <Badge    badgeContent={notificationCount} color="error" className='me-5'> 
         <MessageIcon  fontSize='large'/>
         </Badge>
         <p className='text-lg font-bold'>CONTACT</p>
         </div>
         <Divider/>
-        <div  style={{color:activeIcon=='profile'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
-        <Person4Icon onClick={()=>{
+        <div onClick={()=>{
           handleIconClick('Profile')
-        }} style={{ color: activeIcon === 'Profile' ? 'blue' : 'black' }} className='me-5' fontSize='large'/>
+        }} style={{color:activeIcon=='Profile'?'blue':'black'}} className='flex  h-10  items-center px-3 cursor-pointer'>
+        <Person4Icon   className='me-5' fontSize='large'/>
         <p className='text-lg font-bold'>PROFILE</p>
         </div>
       </List>
     </Drawer>
-    <ToastContainer
-          autoClose={2000}
-          position="top-center"
-          theme="colored"
-        />
  </Box>
   )
 }

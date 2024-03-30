@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AdHeader from './AdHeader';
-import { Box, Button, Slide } from '@mui/material';
+import { Box, Button, Slide, tableFooterClasses } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -32,6 +32,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 function WorkerApprov() {
   const {newWorkerNotification,setNewWorkerNotification}=useContext(newWorkerNotificationContext)
   const [allworkers, setAllWorkers] = useState([]);
+  const [pendingWorkerResp,setPendingWorkerResp]=useState(false)
   const [sortValue,setSortValue]=useState("pending")
   const getAllWorkers = async () => {
     const result = await getAdminAllworkersAPI();
@@ -62,12 +63,19 @@ function WorkerApprov() {
   const handleSortChange=(value)=>{
     setSortValue(value)
   }
+  useEffect(()=>{
+   if(allworkers){
+    setPendingWorkerResp(allworkers.filter((worker)=>(
+      worker.status===sortValue
+    )).length>0?true:false)
+   }
+  },[allworkers])
+
   
   return (
     <>
-      <AdHeader />
-      <Box component="main" sx={{ flexGrow: 1, paddingLeft: 10, paddingTop: 3, paddingRight: 3 }}>
-        <DrawerHeader />
+
+      <Box component="main" sx={{ flexGrow: 1, paddingLeft: 10, paddingTop: 10, paddingRight: 3 }}>
         <div className='flex justify-between'>
         <h1 className="text-4xl font-bold">Admin Approvel</h1>
         <Box sx={{ minWidth: 120 }}>
@@ -109,7 +117,7 @@ function WorkerApprov() {
               </TableRow>
             </TableHead>
             <TableBody >
-              {allworkers?.length > 0?allworkers?.filter((worker)=>(
+              {allworkers?.filter((worker)=>(
                 sortValue==""?worker:worker.status==sortValue
               ))
               .map((worker, index) => (
@@ -142,9 +150,9 @@ function WorkerApprov() {
                     </FormControl>
                   </TableCell>
                 </TableRow>
-              )) :
-                <TableRow>
-                  <TableCell colSpan={9} className='text-red-400 text-center'>No Request Approvel found!!!</TableCell>
+              ))}
+              {!pendingWorkerResp&&<TableRow>
+                  <TableCell colSpan={9} style={{color:'red',textAlign:'center',fontWeight:'bold'}} >No Request Approvel found!!!</TableCell>
                 </TableRow>
               }
             </TableBody>

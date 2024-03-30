@@ -107,3 +107,18 @@ export const updateStatusAPI=async(id,reqBody)=>{
 export const getAllCountsAPI=async()=>{
     return await commonAPI('GET',`${SERVER_URL}/getAllCount`,"","")
 }
+
+// HELP
+
+// Delete RoomId
+export const deleteRoomAPI=async(id)=>{
+    return await commonAPI('DELETE',`${SERVER_URL}/deleteRoom/${id}`,{},"")
+}
+// Clear chat
+export const clearChatAPI=async(roomId)=>{
+    return await commonAPI('DELETE',`${SERVER_URL}/clearChat/${roomId}`,{},"")
+}
+// Delete Messsage
+export const deleteMessageAPI=async(id)=>{
+    return await commonAPI('DELETE',`${SERVER_URL}/deleteMessage/${id}`,{},"")
+}

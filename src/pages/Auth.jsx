@@ -25,7 +25,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import signupBack from '../assets/Images/signupBack.jpg'
 import LoginBack from '../assets/Images/LoginBack.png'
 import { tokenAuthenticationContext } from "../ContextAPI/TokenAuth";
-function Auth({ insideSignup }) {
+function Auth({ insideSignup,setUsername }) {
   const provider = new GoogleAuthProvider();
   const {isAuthorized,setIsAuthorized}=useContext(tokenAuthenticationContext)
   const [open, setOpen] = useState(false);
@@ -102,6 +102,7 @@ function Auth({ insideSignup }) {
             setOpen(false);
             if(result.data.existingUser.email=="admin123@gmail.com"){
               navigate('/adhome')
+              setUsername(JSON.parse(sessionStorage.getItem('user'))?.username)
             }else{
               navigate("/");
             }
@@ -194,14 +195,14 @@ function Auth({ insideSignup }) {
           theme="colored"
         />
         <div className="grid grid-cols-2 max-[850px]:grid-cols-1 w-[850px] shadow-2xl">
-          <div className="flex flex-col justify-center items-center h-96 bg-white">
+          <div className="flex  justify-center items-center  bg-white">
             {insideSignup?
             <div className="flex justify-center flex-col items-center ">
               <EngineeringIcon fontSize="large" style={{fontSize:'80px'}} className="mb-5  font-bold"/>
             <h1 className="text-5xl font-bold w-80 text-center">WELCOME TO <span className="text-yellow-400">CONNECTIE</span></h1>
             </div>
             :
-            <img src={LoginBack} alt="" />
+            <img src={LoginBack}  alt="" />
           }
           </div>
         <div className=" space-y-10   px-3  bg-yellow-400 py-3">

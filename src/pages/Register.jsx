@@ -214,11 +214,6 @@ function Register() {
 
   return (
     <>
-    <ToastContainer
-          autoClose={3000}
-          position="top-center"
-          theme="colored"
-        />
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={open}
@@ -227,8 +222,8 @@ function Register() {
       </Backdrop>
       <Header insideRegister />
       <div className="min-h-screen   py-5 ">
-        <h1 className="text-center text-5xl font-extrabold">REGISTER</h1>
-        <div className="flex justify-center items-center mt-10">
+        <h1 className="text-center text-5xl font-extrabold">Register Your Work Profile</h1>
+        <div className="flex flex-col justify-center items-center mt-10">
           <label className="text-center">
             <input
               onChange={(e) =>
@@ -249,6 +244,9 @@ function Register() {
               className="cursor-pointer"
             />
           </label>
+         {
+          regImagePreview==""&& <p className="text-red-500 font-bold">Add a profile photo</p>
+         }
         </div>
         <div className="flex flex-col justify-center items-center">
           <div className="grid grid-cols-2  gap-12  mt-10 max-md:grid-cols-1">

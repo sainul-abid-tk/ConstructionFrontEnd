@@ -125,7 +125,6 @@ function AdProfile() {
 
   return (
     <>
-    <AdHeader/>
     <div className="h-screen flex justify-center items-center w-full">
           <div className="w-96 space-y-12 rounded-xl ">
             <div className="flex justify-center items-center mt-10">

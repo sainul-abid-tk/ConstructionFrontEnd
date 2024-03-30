@@ -49,18 +49,19 @@ function AdReports() {
     const result=await deleteReviewReportsAPI(rrId)
     if(result.status==200){
       toast.success(result.data)
+      getAllReportedReviews()
     }else{
       console.log(result.response.data);
     }
   }
   useEffect(()=>{
     getAllReportedReviews()
-  },[handleDeleteReviewReport])
+  },[])
   return (
     <>
-    <AdHeader/>
-     <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:3,paddingRight:3 }}>
-      <DrawerHeader/>
+
+     <Box component="main" sx={{ flexGrow: 1,paddingLeft:10,paddingTop:10,paddingRight:3 }}>
+
         <h1 className='text-4xl font-bold'>Reviews Reports List</h1>
         <div className='flex justify-between w-full  mt-5 items-center'>
           <div className='flex items-center'>

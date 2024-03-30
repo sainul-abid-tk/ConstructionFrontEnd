@@ -26,7 +26,6 @@ function UserEditableRegister() {
   const navigate=useNavigate()
   const {wId}=useParams()
   const [open, setOpen] = useState(false);
-  const {userWorkDetails,setUserWorkDetails}=useContext(UserWorkDetailsContext)
   const [registerData, setRegisterData] = useState({
     registerImage: "",
     name: "",
@@ -41,7 +40,7 @@ function UserEditableRegister() {
     state: "",
     city: "",
     place: "",
-    workImages: [],
+    workImages: []
   });
   
   const [regImagePreview, setRegImagePreview] = useState("");
@@ -101,7 +100,6 @@ function UserEditableRegister() {
    setRegisterExistingImage(editableData?.registerImage)
    setWorkExistingImage(editableData?.workImages)
   }
-  console.log(workExistingImage);
   useEffect(()=>{
    UpdateWorkerData()
    const states = Array.from(new Set(city.map((city) => city.state)));
@@ -165,6 +163,7 @@ function UserEditableRegister() {
       reqBody.append("state", state);
       reqBody.append("city", city);
       reqBody.append("place", place);
+      reqBody.append("status",status)
       if(preview.length>0){
         for (let i = 0; i < workImages.length; i++) {
           reqBody.append("workImages", workImages[i]);
@@ -254,7 +253,7 @@ function UserEditableRegister() {
       </Backdrop>
     <Header insideRegister />
       <div className="min-h-screen   py-5 ">
-        <h1 className="text-center text-5xl font-extrabold">Edit Your Register</h1>
+        <h1 className="text-center text-5xl font-extrabold">Edit Your Work Profile</h1>
         <div className="flex justify-center items-center mt-10">
         <label className="text-center">
             <input

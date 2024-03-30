@@ -22,7 +22,7 @@ function Home() {
           </h2>
           <div className='flex justify-start items-start mt-5 w-full '>
           <Link to={'/workers'}>
-          <Button style={{fontSize:'16px',background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black',fontWeight:'bold'}} className='bg-yellow-300' variant="contained" endIcon={<ForwardIcon className="hover:scale-x-125" style={{fontSize:'30px'}} />}>Find Your Worker</Button>
+          <Button style={{fontSize:'16px',background:'rgb(250 204 21 / var(--tw-bg-opacity))',color:'black',fontWeight:'bold'}} className='bg-yellow-300' variant="contained" endIcon={<ForwardIcon className="hover:scale-x-125" style={{fontSize:'30px'}} />}>Discover Available Talent</Button>
           </Link>
           </div>
         </div>

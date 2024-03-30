@@ -296,13 +296,7 @@ function Workers() {
                  </Stack>
               ))}
             </div>}
-            {
-              allworkers?.length==0&&!seacrh&&
-              <div className="w-full flex justify-center items-center flex-col">
-                <img src={searchNotFound} alt="" />
-                <h6 className='text-lg font-bold'>Sorry! No Result Found</h6>
-              </div>
-            }
+            
           {!skeletonLoading&&<>
           <CustomTabPanel value={value} index={0}>
             <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
@@ -311,8 +305,14 @@ function Workers() {
                 <div key={index}>
                 <WorkerCard worker={worker}/>
               </div>
-              ))
-              }
+              ))}
+              {
+              allworkers?.length==0&&!seacrh&&
+              <div className="w-full flex justify-center items-center flex-col">
+                <img src={searchNotFound} alt="" />
+                <h6 className='text-lg font-bold'>Sorry! No Result Found</h6>
+              </div>
+            }
             </div>
             <nav className='flex justify-center items-center mt-10 mb-5'>
       <ul className=" flex  justify-between items-center">
@@ -333,32 +333,34 @@ function Workers() {
     </nav>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-          {allworkers?.some(item=>item.categories[0].includes("Electrical"))?
+          {allworkers?.some(item=>item?.categories?.includes("Electrical"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Electrical")
+                worker.categories.includes("Electrical")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
               </div>
               ))
              }
-            </div>:
+            </div>
+            :
             <div className="w-full flex justify-center items-center flex-col">
-                <img src={searchNotFound} alt="" />
-                <h6 className='text-lg font-bold'>Sorry! No Result Found</h6>
-              </div>
+              <img src={searchNotFound} alt="" />
+              <h6 className='text-lg font-bold'>Sorry! No Result Found</h6>
+            </div>
             }
+            
             
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
 
-             {allworkers?.some(item=>item.categories[0].includes("Plumbing"))?
+             {allworkers?.some(item=>item.categories?.includes("Plumbing"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Plumbing")
+                worker.categories?.includes("Plumbing")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -374,11 +376,11 @@ function Workers() {
             
           </CustomTabPanel>
           <CustomTabPanel value={value} index={3}>
-          {allworkers?.some(item=>item.categories[0].includes("Carpentry"))?
+          {allworkers?.some(item=>item?.categories?.includes("Carpentry"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Carpentry")
+                worker.categories?.includes("Carpentry")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -393,11 +395,11 @@ function Workers() {
             }
           </CustomTabPanel>
           <CustomTabPanel value={value} index={4}>
-          {allworkers?.some(item=>item.categories[0].includes("Welding"))?
+          {allworkers?.some(item=>item.categories?.includes("Welding"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Welding")
+                worker.categories?.includes("Welding")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -412,11 +414,11 @@ function Workers() {
             }
           </CustomTabPanel>
           <CustomTabPanel value={value} index={5}>
-          {allworkers?.some(item=>item.categories[0].includes("TileWork"))?
+          {allworkers?.some(item=>item.categories?.includes("TileWork"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("TileWork")
+                worker.categories?.includes("TileWork")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -432,11 +434,11 @@ function Workers() {
           </CustomTabPanel>
           
           <CustomTabPanel value={value} index={6}>
-          {allworkers?.some(item=>item.categories[0].includes("Construction"))?
+          {allworkers?.some(item=>item.categories?.includes("Construction"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Construction")
+                worker.categories?.includes("Construction")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -451,11 +453,11 @@ function Workers() {
             }
           </CustomTabPanel>
           <CustomTabPanel value={value} index={7}>
-          {allworkers?.some(item=>item.categories[0].includes("Painting"))?
+          {allworkers?.some(item=>item.categories?.includes("Painting"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Painting")
+                worker.categories?.includes("Painting")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -470,11 +472,11 @@ function Workers() {
             }
           </CustomTabPanel>
           <CustomTabPanel value={value} index={8}>
-          {allworkers?.some(item=>item.categories[0].includes("Centring"))?
+          {allworkers?.some(item=>item.categories?.includes("Centring"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Centring")
+                worker.categories?.includes("Centring")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
@@ -489,11 +491,11 @@ function Workers() {
             }
           </CustomTabPanel>
           <CustomTabPanel value={value} index={9}>
-          {allworkers?.some(item=>item.categories[0].includes("Fabrication"))?
+          {allworkers?.some(item=>item.categories?.includes("Fabrication"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories[0].includes("Fabrication")
+                worker.categories?.includes("Fabrication")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>
