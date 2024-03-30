@@ -194,8 +194,8 @@ function Auth({ insideSignup,setUsername }) {
           position="top-center"
           theme="colored"
         />
-        <div className="grid grid-cols-2 max-[850px]:grid-cols-1 max-[850px]:h-screen w-[850px] shadow-2xl">
-          <div className="flex  justify-center items-center  bg-white">
+        <div className="grid grid-cols-2 max-[850px]:grid-cols-1  w-[850px] shadow-2xl">
+          <div className="flex  justify-center items-center max-[850px]:h-screen bg-white">
             {insideSignup?
             <div className="flex justify-center flex-col items-center h-full">
               <EngineeringIcon fontSize="large" style={{fontSize:'80px'}} className="mb-5  font-bold"/>
