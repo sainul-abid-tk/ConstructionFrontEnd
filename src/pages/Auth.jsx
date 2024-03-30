@@ -194,7 +194,7 @@ function Auth({ insideSignup,setUsername }) {
           position="top-center"
           theme="colored"
         />
-        <div className="grid grid-cols-2 max-[850px]:grid-cols-1 w-[850px] shadow-2xl">
+        <div className="grid grid-cols-2 max-[850px]:grid-cols-1 max-[850px]:h-screen w-[850px] shadow-2xl">
           <div className="flex  justify-center items-center  bg-white">
             {insideSignup?
             <div className="flex justify-center flex-col items-center h-full">
