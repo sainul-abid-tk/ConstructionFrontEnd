@@ -31,8 +31,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { newWorkerNotificationContext } from '../ContextAPI/NewWorkerNotify';
 import { getAdminAllworkersAPI, getReportedReviewsAPI } from '../Services/allAPI';
 import { io } from "socket.io-client";
-// const socket = io("https://constructionbackend-jqba.onrender.com");
-const socket = io("http://localhost:3000");
+const socket = io("https://constructionbackend-jqba.onrender.com");
+
 const drawerWidth = 200;
 
 const openedMixin = (theme) => ({

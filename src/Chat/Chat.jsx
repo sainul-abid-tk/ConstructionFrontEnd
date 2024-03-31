@@ -7,8 +7,7 @@ import {io} from "socket.io-client"
 import { deleteRoomAPI } from "../Services/allAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// const socket=io('https://constructionbackend-jqba.onrender.com')
-const socket = io("http://localhost:3000");
+const socket=io('https://constructionbackend-jqba.onrender.com')
 
 function Chat() {
   const [selectedConversation,setSelectedConversation]=useState("")

@@ -23,7 +23,7 @@ import { useContext, useEffect, useState } from 'react'
 import { tokenAuthenticationContext } from './ContextAPI/TokenAuth'
 import AdHeader from './Admin/AdHeader'
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3000");
+const socket = io("https://constructionbackend-jqba.onrender.com");
 function App() {
   const {isAuthorized,setIsAuthorized}=useContext(tokenAuthenticationContext)
   const [adminEmail,setAdminEmail]=useState("")
