@@ -306,14 +306,17 @@ function Workers() {
                 <WorkerCard worker={worker}/>
               </div>
               ))}
+              </div>
               {
-              allworkers?.length==0&&!seacrh&&
-              <div className="w-full flex justify-center items-center flex-col">
+              allworkers?.length===0&&!seacrh&&
+              <div className="w-full grid-cols-1 flex justify-center items-center">
+              <div className="flex flex-col">
                 <img src={searchNotFound} alt="" />
-                <h6 className='text-lg font-bold'>Sorry! No Result Found</h6>
+                <h6 className='text-lg font-bold text-center'>Sorry! No Result Found</h6>
+              </div>
               </div>
             }
-            </div>
+            
             <nav className='flex justify-center items-center mt-10 mb-5'>
       <ul className=" flex  justify-between items-center">
         <Button onClick={prePage} className='page-item'>
@@ -333,11 +336,11 @@ function Workers() {
     </nav>
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-          {allworkers?.some(item=>item?.categories?.includes("Electrical"))?
+          {allworkers?.some(item=>item.categories?.includes("Electrical"))?
           <div className="grid grid-cols-4 mt-10 gap-8 max-2xl:grid-cols-3
             max-lg:grid-cols-2 max-sm:grid-cols-1 max-sm:flex max-sm:flex-col max-sm:justify-center max-sm:items-center">
               {allworkers?.filter(worker=>(
-                worker.categories.includes("Electrical")
+                worker?.categories?.includes("Electrical")
               )).map((worker)=>(
                 <div>
                 <WorkerCard worker={worker}/>

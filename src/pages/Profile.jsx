@@ -53,6 +53,7 @@ function Profile() {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  console.log(userProfile);
   const handleUpdate=async()=>{
    const {username,email,password,profileImage}=userProfile
    const passwordCheckingforGoogleuser=JSON.parse(sessionStorage.getItem("user")).password
@@ -77,7 +78,7 @@ function Profile() {
          if(result.status==200){
           toast.success("Your profile updated Successfully")
           sessionStorage.setItem("user",JSON.stringify(result.data))
-          useNavigate('/')
+          navigate('/')
           setProfileUpdateResponse(result.data)
          }else{
           toast.info(result.response.data);
@@ -107,9 +108,11 @@ function Profile() {
          const result =await updateUserProfileAPI(reqBody,reqHeader)
          if(result.status==200){
           toast.success("Your profile updated Successfully")
-          useNavigate('/')
           sessionStorage.setItem("user",JSON.stringify(result.data))
           setProfileUpdateResponse(result.data)
+          setTimeout(() => {
+            navigate('/')
+          }, 2000);
          }else{
           toast.info(result.response.data);
          }

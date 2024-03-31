@@ -31,7 +31,8 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { newWorkerNotificationContext } from '../ContextAPI/NewWorkerNotify';
 import { getAdminAllworkersAPI, getReportedReviewsAPI } from '../Services/allAPI';
 import { io } from "socket.io-client";
-const socket = io("https://constructionbackend-jqba.onrender.com");
+// const socket = io("https://constructionbackend-jqba.onrender.com");
+const socket = io("http://localhost:3000");
 const drawerWidth = 200;
 
 const openedMixin = (theme) => ({
@@ -98,7 +99,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     }),
   }),
 );
-function AdHeader({setUsername}) {
+function AdHeader({setAdminEmail}) {
   const {newWorkerNotification,setNewWorkerNotification}=useContext(newWorkerNotificationContext)
   const {adminReportResponse,setAdminReportResponse}=useContext(adminReportResponseContext)
   const [newRowCount,setNewRowCount]=useState(0)
@@ -189,7 +190,7 @@ function AdHeader({setUsername}) {
            setTimeout(() => {
             sessionStorage.removeItem("user")
            sessionStorage.removeItem("token")
-           setUsername("")
+           setAdminEmail("")
            navigate('/')
            }, 2000);
         }} style={{width:'150px'}} color='error' variant='contained' startIcon={<LogoutIcon/>}>LogOut</Button>

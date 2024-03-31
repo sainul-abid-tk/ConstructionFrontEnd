@@ -16,7 +16,9 @@ import { newMessageResContext } from "../ContextAPI/NewMessageArrivedResp";
 import { clearChatAPI, deleteMessageAPI } from "../Services/allAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-const socket = io("https://constructionbackend-jqba.onrender.com");
+// const socket = io("https://constructionbackend-jqba.onrender.com");
+const socket = io("http://localhost:3000");
+
 console.log(socket);
 function Help() {
   const {newMessageArrivedResp,setNewMessageArrivedResp}=useContext(newMessageResContext)

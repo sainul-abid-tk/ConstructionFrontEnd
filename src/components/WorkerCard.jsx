@@ -37,7 +37,7 @@ function WorkerCard({ worker }) {
               <LocationOnIcon />
               {`${worker?.place},${worker?.city},${worker?.state}`}
             </p>
-            <div className="mt-2 space-x-2">
+            <div className="mt-2 ">
               {worker.categories?.map((category) => (
                 <button className="border bg-gray-100 rounded-lg px-2 me-2">
                   {category}

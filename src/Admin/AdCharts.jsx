@@ -41,7 +41,7 @@ const workers=[
 function AdCharts() {
   return (
     <>
-    <Box component="main" sx={{ flexGrow: 1,paddingLeft:3,paddingTop:10 }}>
+    <Box component="main" sx={{ flexGrow: 1,paddingLeft:3,paddingTop:20 }}>
         <div className='flex space-x-2'>
         <BarChart
           width={750}

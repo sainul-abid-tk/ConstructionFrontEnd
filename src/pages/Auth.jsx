@@ -25,7 +25,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import signupBack from '../assets/Images/signupBack.jpg'
 import LoginBack from '../assets/Images/LoginBack.png'
 import { tokenAuthenticationContext } from "../ContextAPI/TokenAuth";
-function Auth({ insideSignup,setUsername }) {
+function Auth({ insideSignup,setAdminEmail }) {
   const provider = new GoogleAuthProvider();
   const {isAuthorized,setIsAuthorized}=useContext(tokenAuthenticationContext)
   const [open, setOpen] = useState(false);
@@ -102,7 +102,7 @@ function Auth({ insideSignup,setUsername }) {
             setOpen(false);
             if(result.data.existingUser.email=="admin123@gmail.com"){
               navigate('/adhome')
-              setUsername(JSON.parse(sessionStorage.getItem('user'))?.username)
+              setAdminEmail(JSON.parse(sessionStorage.getItem('user'))?.email)
             }else{
               navigate("/");
             }

@@ -26,19 +26,19 @@ import { io } from "socket.io-client";
 const socket = io("http://localhost:3000");
 function App() {
   const {isAuthorized,setIsAuthorized}=useContext(tokenAuthenticationContext)
-  const [username,setUsername]=useState("")
+  const [adminEmail,setAdminEmail]=useState("")
   useEffect(()=>{
-    setUsername(JSON.parse(sessionStorage.getItem('user'))?.username)
-    if(username){
+    setAdminEmail(JSON.parse(sessionStorage.getItem('user'))?.email)
+    if(adminEmail){
       socket.emit('adminPageOpen')
     }
-  },[username])
+  },[adminEmail])
   return (
     <>
-    {username=='Admin'&&<AdHeader setUsername={setUsername}/>}
+    {adminEmail=='admin123@gmail.com'&&<AdHeader setAdminEmail={setAdminEmail}/>}
       <Routes>
         <Route path='/' element={<Home/>}/>
-        <Route path='/login' element={<Auth setUsername={setUsername}/>}/>
+        <Route path='/login' element={<Auth setAdminEmail={setAdminEmail}/>}/>
         <Route path='/signup' element={<Auth  insideSignup/>}/>
         <Route path='/profile' element={isAuthorized?<Profile/>:<Home/>}/>
         <Route path='/register' element={isAuthorized?<Register/>:<Home/>}/>
@@ -46,7 +46,7 @@ function App() {
         <Route path='/worker/:wId' element={<Worker/>}/>
         <Route path='/userEditReg/:wId' element={isAuthorized?<UserEditableRegister/>:<Home/>}/>
         <Route path='/help' element={<Help/>}/>
-        <Route path='/adhome' element={isAuthorized?<AdHome username={username}/>:<Home/>}/>
+        <Route path='/adhome' element={isAuthorized?<AdHome/>:<Home/>}/>
         <Route path='/adusers' element={isAuthorized?<AdUsers/>:<Home/>}/>
         <Route path='/adWorkers' element={isAuthorized?<AdWorkers/>:<Home/>}/>
         <Route path='/adReviews' element={isAuthorized?<AdReviews/>:<Home/>}/>

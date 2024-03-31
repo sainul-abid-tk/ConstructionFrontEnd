@@ -78,7 +78,6 @@ function AdProfile() {
           if(result.status==200){
            toast.success("Your profile updated Successfully")
            sessionStorage.setItem("user",JSON.stringify(result.data))
-           useNavigate('/')
            setProfileUpdateResponse(result.data)
           }else{
            toast.info(result.response.data);
@@ -108,7 +107,6 @@ function AdProfile() {
           const result =await updateUserProfileAPI(reqBody,reqHeader)
           if(result.status==200){
            toast.success("Your profile updated Successfully")
-           useNavigate('/')
            sessionStorage.setItem("user",JSON.stringify(result.data))
            setProfileUpdateResponse(result.data)
           }else{

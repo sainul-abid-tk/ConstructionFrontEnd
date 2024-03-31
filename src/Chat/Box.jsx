@@ -15,7 +15,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { clearChatAPI, deleteMessageAPI } from "../Services/allAPI";
 import { newMessageResContext } from "../ContextAPI/NewMessageArrivedResp";
 import { adminChatRulesContext } from "../ContextAPI/AdminChatRuleResp";
-const socket = io("https://constructionbackend-jqba.onrender.com");
+const socket = io("http://localhost:3000");
+// const socket = io("https://constructionbackend-jqba.onrender.com");
+
 
 function Box({ selectedConversation }) {
   const {newMessageArrivedResp,setNewMessageArrivedResp}=useContext(newMessageResContext)
